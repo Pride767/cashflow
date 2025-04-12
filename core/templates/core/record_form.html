@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <h2>{{ title }}</h2>
+    <form method="post" id="recordForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Сохранить</button>
+        <a href="{% url 'record_list' %}" class="btn btn-secondary">Отмена</a>
+    </form>
+    <script>
+        document.getElementById('recordForm').addEventListener('submit', function(e) {
+            const amount = document.querySelector('input[name="amount"]').value;
+            if (!amount || amount <= 0) {
+                e.preventDefault();
+                alert('Сумма должна быть больше 0');
+            }
+        });
+    </script>
+{% endblock %}
